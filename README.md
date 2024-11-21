@@ -1,7 +1,3 @@
-Here's the updated **README.md** with details about the MySQL database and the provided SQL file.
-
----
-
 # Freelancer Job Marketplace
 
 The **Freelancer Job Marketplace** is a comprehensive web-based platform designed to connect freelancers with clients who require specialized skills for various projects. Unlike traditional employment platforms, this marketplace focuses on facilitating short-term, project-based work. It allows businesses to quickly find expert talent and provides freelancers with access to a wide array of job opportunities. The platform is intuitive and secure, ensuring a seamless experience for both clients and freelancers.
