@@ -1,0 +1,131 @@
+/* Futuristic Cyberpunk-Inspired Design */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --primary-color: #00ffff;  /* Bright cyan */
+    --secondary-color: #ff00ff;  /* Vibrant magenta */
+    --background-dark: #0a0a1a;
+    --background-medium: #1a1a2e;
+    --text-light: #e0e0ff;
+    --accent-glow: rgba(0, 255, 255, 0.3);
+}
+
+body {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Global Styling */
+.stApp {
+    background: linear-gradient(135deg, var(--background-dark) 0%, var(--background-medium) 100%);
+}
+
+/* Futuristic Title Styles */
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1em;
+    text-shadow: 0 0 15px var(--accent-glow);
+    letter-spacing: 2px;
+    position: relative;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Sleek Headers */
+.header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.75em;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.3em;
+}
+
+/* Glowing Buttons */
+.stButton button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--background-dark);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px var(--accent-glow);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stButton button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--primary-color);
+}
+
+/* Sidebar Styling */
+.css-1d391kg {
+    background: linear-gradient(135deg, var(--background-medium) 0%, var(--background-dark) 100%);
+    border-right: 2px solid var(--primary-color);
+}
+
+/* Input Fields */
+.stTextInput input, .stNumberInput input {
+    background-color: rgba(26, 26, 46, 0.7);
+    border: 2px solid var(--primary-color);
+    color: var(--text-light);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.stTextInput input:focus, .stNumberInput input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* Expander / Information Boxes */
+.expander {
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.8) 0%, rgba(10, 10, 26, 0.8) 100%);
+    border: 2px solid var(--primary-color);
+    color: var(--text-light);
+    border-radius: 15px;
+    padding: 1em;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+/* Scrollbar Styling (for modern look) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-medium);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* Responsive Typography */
+@media (max-width: 600px) {
+    .title {
+        font-size: 2em;
+    }
+    
+    .header {
+        font-size: 1.5em;
+    }
+}

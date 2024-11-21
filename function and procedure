@@ -1,0 +1,91 @@
+DELIMITER //
+
+CREATE PROCEDURE accept_proposal(
+    IN proposal_id_param INT,
+    OUT status_message VARCHAR(100)
+)
+BEGIN
+    DECLARE v_job_id INT;
+    DECLARE v_freelancer_id INT;
+    DECLARE v_proposed_rate DECIMAL(10,2);
+    DECLARE v_job_status VARCHAR(10);
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET status_message = 'Error occurred. Operation rolled back.';
+    END;
+    
+    START TRANSACTION;
+    
+    SELECT job_id, freelancer_id, proposed_rate 
+    INTO v_job_id, v_freelancer_id, v_proposed_rate
+    FROM proposals 
+    WHERE id = proposal_id_param;
+    
+    SELECT status INTO v_job_status 
+    FROM jobs 
+    WHERE id = v_job_id;
+    
+    IF v_job_status = 'Closed' THEN
+        SET status_message = 'Job is already closed';
+        ROLLBACK;
+    ELSE
+        UPDATE proposals 
+        SET status = 'Accepted' 
+        WHERE id = proposal_id_param;
+        
+        UPDATE proposals 
+        SET status = 'Rejected' 
+        WHERE job_id = v_job_id 
+        AND id != proposal_id_param;
+        
+        INSERT INTO contracts (job_id, freelancer_id, payment, status)
+        VALUES (v_job_id, v_freelancer_id, v_proposed_rate, 'In Progress');
+        
+        UPDATE jobs 
+        SET status = 'Closed' 
+        WHERE id = v_job_id;
+        
+        COMMIT;
+        SET status_message = 'Proposal accepted and contract created successfully';
+    END IF;
+END //
+
+CREATE FUNCTION calculate_freelancer_rating(freelancer_id_param INT)
+RETURNS DECIMAL(3,2)
+READS SQL DATA
+BEGIN
+    DECLARE avg_rating DECIMAL(3,2);
+    
+    SELECT COALESCE(AVG(r.rating_score), 0.00) INTO avg_rating
+    FROM ratings r
+    JOIN contracts c ON r.contract_id = c.id
+    WHERE c.freelancer_id = freelancer_id_param
+    AND c.status = 'Completed';
+    
+    RETURN avg_rating;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER BeforeInsertRating
+BEFORE INSERT ON ratings
+FOR EACH ROW
+BEGIN
+    DECLARE contractStatus ENUM('In Progress', 'Completed');
+
+    SELECT status INTO contractStatus
+    FROM contracts
+    WHERE id = NEW.contract_id;
+
+    IF contractStatus != 'Completed' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Contract must be completed before rating.';
+    END IF;
+END //
+
+DELIMITER ;

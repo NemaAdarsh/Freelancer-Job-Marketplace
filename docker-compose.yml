@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  client_dashboard:
+    build: .
+    command: streamlit run client_dashboard.py
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    
+  admin_dashboard:
+    build: .
+    command: streamlit run admin_dashboard.py
+    ports:
+      - "8502:8501"
+    volumes:
+      - .:/app
+
+  freelancer_dashboard:
+    build: .
+    command: streamlit run freelancer_dashboard.py
+    ports:
+      - "8503:8501"
+    volumes:
+      - .:/app
