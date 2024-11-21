@@ -83,7 +83,4 @@ Alternatively, you can use Docker Compose to set up and run all dashboards simul
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request for review.
 
----
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Screenshots are given in the screenshot folder.
